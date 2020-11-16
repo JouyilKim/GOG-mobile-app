@@ -1,60 +1,68 @@
 import 'package:flutter/material.dart';
+import 'Calc.dart';
 
-class Service extends StatelessWidget {
-  TabController tabController;
+class Service extends StatefulWidget {
+  @override
+  _SilverAppBarWithTabBarState createState() => _SilverAppBarWithTabBarState();
+}
 
+class _SilverAppBarWithTabBarState extends State<Service>
+    with SingleTickerProviderStateMixin {
 
+  TabController controller;
+  List<Widget> containers =[
+    Container(
+
+    ),
+    Container(
+      color: Colors.blue,
+    ),
+    Container(
+      child: Calc(),
+    )
+  ];
+
+  @override
   void initState() {
-
+    super.initState();
+    controller = TabController(
+      length: 3,
+      vsync: this,
+    );
   }
-//todo https://android.jlelse.eu/flutter-bubble-tab-indicator-for-tabbar-dd038f1076d3
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-          appBar: AppBar(
-            bottom: PreferredSize(
-              preferredSize: Size(20, 10),
-              child: TabBar(
-                indicator: UnderlineTabIndicator(
-                  borderSide: BorderSide(width: 5),
-                  insets: EdgeInsets.symmetric(horizontal: 16)
-                ),
-                tabs: [
-                  Tab(icon: Icon(Icons.directions_car)),
-                  Tab(icon: Icon(Icons.directions_transit)),
-                  Tab(icon: Icon(Icons.directions_bike)),
-                ],
-              ),
+
+    return Scaffold(
+      body: CustomScrollView(
+        slivers: <Widget>[
+          //https://github.com/flutter/plugins/tree/master/packages/webview_flutter#using-hybrid-composition
+          SliverAppBar(
+            pinned: false,
+            snap: false,
+            floating: false,
+            backgroundColor: Colors.deepOrange,
+            // **Is it intended ?** flexibleSpace.title overlaps with tabs title.
+            bottom: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.airplanemode_active), text: "Study Tour",),
+                Tab(icon: Icon(Icons.assignment), text:"Study" ,),
+                Tab(icon: Icon(Icons.score), text: "Immigration",),
+              ],
+              controller: controller,
             ),
           ),
-        body:
-        TabBarView(
-          children: [
-            Icon(Icons.comment),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-          ],
-        ),
+          // SliverList(
+          SliverFillRemaining(
+            child: TabBarView(
+              //physics: NeverScrollableScrollPhysics(),
+              controller: controller,
+              children: containers,
+            ),
+          ),
+        ],
       ),
-    ),
     );
   }
 }
-
-/*
-import 'package:flutter/material.dart';
-
-class Service extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(25),
-      child: Text('Service', style: TextStyle(fontSize:40),),
-      color: Colors.teal,
-    );
-  }
-}
- */

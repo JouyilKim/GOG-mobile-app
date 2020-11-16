@@ -1,190 +1,62 @@
-import 'package:flutter/cupertino.dart';
+//Libraries
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:line_icons/line_icons.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
 
+//classes
+import 'Localization/app_localizations.dart';
+import 'Localization/AppLanguage.dart';
+
+//Screens
 import 'Screen/News.dart';
-import 'Screen/Service.dart';
-import 'Screen/Forum.dart';
+import 'Screen/Calc.dart';
+import 'Screen/Service2.dart';
 import 'Screen/AboutUs.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  AppLanguage appLanguage = AppLanguage();
+  await appLanguage.fetchLocale();
+  runApp(MyApp(
+    appLanguage: appLanguage,
+  ));
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final AppLanguage appLanguage;
+  MyApp({this.appLanguage});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Global Ocean Group App Minor',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MinorPage(title: 'Global Ocean Group'),
+    return ChangeNotifierProvider<AppLanguage>(
+      create: (_) => appLanguage,
+      child: Consumer<AppLanguage>(builder: (context, model, child) {
+        return new MaterialApp(
+          locale: model.appLocal,
+          title: 'Global Ocean Group App',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          supportedLocales: [
+            const Locale('en', 'US'),
+            const Locale('zh', 'CN'),
+          ],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
+
+          home: MinorPage(title: 'Global Ocean Group'),
+        );
+      }),
     );
   }
 }
 
-//too old fashioned
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> with TickerProviderStateMixin {
-  int selectedIndex = 0;
-  PageController controller = PageController();
-
-  //colors and contents for navigation bar
-  List<GButton> tabs = new List();
-  List<Color> colors = [
-    Colors.purple,
-    Colors.pink,
-    Colors.amber[600],
-    Colors.teal
-  ];
-  final pageNavigator = [
-    News(),
-    Service(),
-    Forum(),
-    AboutUs(),
-  ];
-
-  //bottom Navigation initiator
-  @override
-  void initState() {
-    super.initState();
-
-    var padding = EdgeInsets.symmetric(
-        horizontal: 10, vertical: 10); //navigation bar size
-    double gap = 15; //each tap's width
-
-    tabs.add(GButton(
-      gap: gap,
-      iconActiveColor: Colors.purple,
-      iconColor: Colors.black,
-      textColor: Colors.purple,
-      backgroundColor: Colors.purple.withOpacity(.2),
-      iconSize: 40,
-      padding: padding,
-      icon: LineIcons.newspaper_o,
-      textStyle: TextStyle(fontSize: 20),
-      text: 'News',
-    ));
-
-    tabs.add(GButton(
-      gap: gap,
-      iconActiveColor: Colors.pink,
-      iconColor: Colors.black,
-      textColor: Colors.pink,
-      backgroundColor: Colors.pink.withOpacity(.2),
-      iconSize: 40,
-      padding: padding,
-      icon: LineIcons.suitcase,
-      textStyle: TextStyle(fontSize: 20),
-      text: 'Services',
-    ));
-
-    tabs.add(GButton(
-      gap: gap,
-      iconActiveColor: Colors.amber[600],
-      iconColor: Colors.black,
-      textColor: Colors.amber[600],
-      backgroundColor: Colors.amber[600].withOpacity(.2),
-      iconSize: 40,
-      padding: padding,
-      icon: LineIcons.comments_o,
-      textStyle: TextStyle(fontSize: 20),
-      text: ('Forum'),
-    ));
-
-    tabs.add(GButton(
-      gap: gap,
-      iconActiveColor: Colors.teal,
-      iconColor: Colors.black,
-      textColor: Colors.teal,
-      backgroundColor: Colors.teal.withOpacity(.2),
-      iconSize: 40,
-      padding: padding,
-      icon: LineIcons.info,
-      textStyle: TextStyle(fontSize: 20),
-      text: 'About',
-    ));
-  }
-
-//add appbar actions
-//todo https://api.flutter.dev/flutter/material/AppBar-class.html
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Global Ocean Group App',
-      home: Scaffold(
-        extendBody: true,
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
-          child: AppBar(
-            brightness: Brightness.dark,
-            title: const Text(
-              'Global Ocean Group',
-              style: TextStyle(color: Colors.black),
-            ),
-            backgroundColor: Colors.white,
-          ),
-        ),
-
-        body: PageView.builder(
-          onPageChanged: (page) {
-            setState(() {
-              selectedIndex = page;
-            });
-          },
-          controller: controller,
-          itemBuilder: (context, position) {
-            return Container(
-              child: pageNavigator[position],
-              color: colors[position],
-            );
-          },
-          itemCount: tabs.length, // Can be null
-        ),
-        // backgroundColor: Colors.green,
-        // body: Container(color: Colors.red,),
-        bottomNavigationBar: SafeArea(
-          child: Container(
-            margin: EdgeInsets.symmetric(horizontal: 0),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(Radius.zero),
-                boxShadow: [
-                  BoxShadow(
-                      spreadRadius: -10,
-                      blurRadius: 60,
-                      color: Colors.black.withOpacity(.20),
-                      offset: Offset(0, 15))
-                ]),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 2),
-              child: GNav(
-                  tabs: tabs,
-                  selectedIndex: selectedIndex,
-                  onTabChange: (index) {
-                    print(index);
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                    controller.jumpToPage(index);
-                  }),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-
+@override
 //this is the one I use now
 class MinorPage extends StatefulWidget {
   MinorPage({Key key, this.title}) : super(key: key);
@@ -200,27 +72,33 @@ class _MinorPageState extends State<MinorPage> {
 
   final pageNavigator = [
     News(),
-    Service(),
-    Forum(),
+    Service2(),
+    Calc(),
     AboutUs(),
   ];
 
   @override
   Widget build(BuildContext context) {
+    var appLanguage = Provider.of<AppLanguage>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(left: 10.0),
+        //   child: Image.asset('images/logo.png'),
+        // ),
+        title: Text(AppLocalizations.of(context).translate('title')),
       ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const <Widget>[
+          children: <Widget>[
             DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
               child: Text(
-                'Options',
+                AppLocalizations.of(context).translate('options'),
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 24,
@@ -228,24 +106,33 @@ class _MinorPageState extends State<MinorPage> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Language dropview'),
-            ),
-            ListTile(
-              leading: Icon(Icons.account_circle),
-              title: Text('Profile'),
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
-            ),
+                title: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  'images/language.png',
+                  height: 70,
+                  width: 70,
+                ),
+                RaisedButton(
+                  onPressed: () {
+                    appLanguage.changeLanguage(Locale("en"));
+                    Navigator.pop(context);
+                  },
+                  child: Text('English'),
+                ),
+                RaisedButton(
+                    onPressed: () {
+                      appLanguage.changeLanguage(Locale("zh"));
+                      Navigator.pop(context);
+                    },
+                    child: Text('中文')),
+              ],
+            )),
           ],
         ),
       ),
-
-      body: Center(
-        child: pageNavigator.elementAt(selectedIndex)
-      ),
+      body: Center(child: pageNavigator.elementAt(selectedIndex)),
       bottomNavigationBar: FFNavigationBar(
         theme: FFNavigationBarTheme(
           barBackgroundColor: Colors.white,
@@ -265,19 +152,19 @@ class _MinorPageState extends State<MinorPage> {
         items: [
           FFNavigationBarItem(
             iconData: Icons.new_releases,
-            label: 'News',
+            label: AppLocalizations.of(context).translate('news'),
           ),
           FFNavigationBarItem(
             iconData: Icons.business_center,
-            label: 'Services',
+            label: AppLocalizations.of(context).translate('services'),
           ),
           FFNavigationBarItem(
             iconData: Icons.forum,
-            label: 'Forum',
+            label: AppLocalizations.of(context).translate('immigrant'),
           ),
           FFNavigationBarItem(
             iconData: Icons.assignment_ind,
-            label: 'About Us',
+            label: AppLocalizations.of(context).translate('about_us'),
           ),
         ],
       ),
