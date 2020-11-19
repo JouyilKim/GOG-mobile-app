@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Calc.dart';
-import 'package:global_ocean_group_app/src/ui/home_page.dart';
+import 'package:global_ocean_group_app/NewsLoad/ui/home_page.dart';
 
 
 class News extends StatelessWidget {

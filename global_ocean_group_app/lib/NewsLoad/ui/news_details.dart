@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:global_ocean_group_app/src/model/news_model.dart';
-import 'package:global_ocean_group_app/src/ui/web_view.dart';
+import 'package:global_ocean_group_app/NewsLoad/model/news_model.dart';
+import 'package:global_ocean_group_app/NewsLoad/ui/web_view.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class NewsDetails extends StatefulWidget {

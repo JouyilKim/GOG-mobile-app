@@ -21,7 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  http: "^0.11.3+16"
+  http: "^0.12.0"
   flutter:
     sdk: flutter
   flutter_localizations:
@@ -36,6 +36,7 @@ dependencies:
   webview_flutter: ^0.3.22+2
   flutter_webview_plugin: ^0.2.1+2
   flutter_html: ^1.0.2
+  translator: ^0.1.5
 
 
   #for google map
@@ -43,21 +44,20 @@ dependencies:
   location: ^3.0.1
   location_web: ^1.0.0
 
-flutter_launcher_icons: ^0.8.1
-
-flutter_icons:
-  android: "launcher_icon"
-  ios: true
-  image_path: "images/logo.png"
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.8.1
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/logo.png"
 
 
 # For information on the generic Dart part of this file, see the
@@ -83,6 +83,21 @@ flutter:
    - images/travel.png
    - images/invest.png
    - images/nz.png
+   - images/studytour.jpg
+   - images/book1.png
+   - images/insight.png
+   - images/puzzle.png
+   - images/dialogs.png
+   - images/trading.jpg
+   - images/honey.jpg
+   - images/seafood.jpg
+   - images/milk.jpg
+   - images/meat.jpg
+   - images/wine.jpg
+   - images/home.png
+   - images/contactus.png
+   - images/email.png
+   - images/wechat.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/categories_model.dart';
+import 'package:global_ocean_group_app/NewsLoad/model/categories_model.dart';
 import 'news_list.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
     var categories = <CategoriesModel>[
       //adding all the categories of news in the list
       new CategoriesModel('images/study.png', "Study in NZ", "top_news"),
-      new CategoriesModel('images/travel.png', "Study&Travel", "health"),
+      new CategoriesModel('images/travel.png', "Study & Tour", "health"),
       new CategoriesModel(
           'images/invest.png', "Investment", "entertainment"),
       new CategoriesModel('images/invest.png', "Sports", "sports"),

@@ -1,4 +1,5 @@
 //Libraries
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -48,7 +49,6 @@ class MyApp extends StatelessWidget {
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-
           home: MinorPage(title: 'Global Ocean Group'),
         );
       }),
@@ -94,8 +94,10 @@ class _MinorPageState extends State<MinorPage> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+
               decoration: BoxDecoration(
                 color: Colors.blue,
+
               ),
               child: Text(
                 AppLocalizations.of(context).translate('options'),
@@ -129,6 +131,14 @@ class _MinorPageState extends State<MinorPage> {
                     child: Text('中文')),
               ],
             )),
+            Padding(padding: const EdgeInsets.fromLTRB(0, 100, 0, 0),),
+            Text(AppLocalizations.of(context).translate('wechat'),
+            textAlign: TextAlign.center,),
+            Padding(padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),),
+            Container(
+              alignment: Alignment.center,
+              child:Image.asset("images/wechat.jpg", width: 200,)
+            )
           ],
         ),
       ),

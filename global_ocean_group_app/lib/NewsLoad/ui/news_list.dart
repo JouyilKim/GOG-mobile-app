@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:global_ocean_group_app/src/ui/news_details.dart';
-import 'package:global_ocean_group_app/src/model/news_model.dart';
+import 'package:global_ocean_group_app/NewsLoad/ui/news_details.dart';
+import 'package:global_ocean_group_app/NewsLoad/model/news_model.dart';
 import 'package:http/http.dart' as http;
 
 class NewsListPage extends StatefulWidget {

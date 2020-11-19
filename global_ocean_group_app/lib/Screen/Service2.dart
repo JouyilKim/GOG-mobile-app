@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:global_ocean_group_app/Localization/app_localizations.dart';
 
+import 'package:global_ocean_group_app/Screen/service/StudyTour.dart';
+
 
 class Service2 extends StatefulWidget {
   @override
@@ -27,13 +29,13 @@ class _Service2State extends State<Service2> {
             ),
           ),
           automaticallyImplyLeading: false,
-          backgroundColor: Color(0xff5808e5),
+          backgroundColor: Colors.indigoAccent,
 
         ),
         body: TabBarView(
           children: [
             Center(child: Text('Study in NZ')),
-            Center(child: Text('Study Tour')),
+            Center(child: StudyTour()),
             Center(child: Text(myLocale.toString())),
           ],
         ),
