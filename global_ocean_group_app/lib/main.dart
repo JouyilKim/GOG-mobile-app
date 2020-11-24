@@ -11,9 +11,9 @@ import 'Localization/AppLanguage.dart';
 
 //Screens
 import 'Screen/News.dart';
-import 'Screen/Calc.dart';
-import 'Screen/Service2.dart';
+import 'Screen/Service.dart';
 import 'Screen/AboutUs.dart';
+import 'Screen/Immigration.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,8 +72,8 @@ class _MinorPageState extends State<MinorPage> {
 
   final pageNavigator = [
     News(),
-    Service2(),
-    Calc(),
+    Service(),
+    Immigration(),
     AboutUs(),
   ];
 
@@ -83,10 +83,6 @@ class _MinorPageState extends State<MinorPage> {
 
     return Scaffold(
       appBar: AppBar(
-        // leading: Padding(
-        //   padding: const EdgeInsets.only(left: 10.0),
-        //   child: Image.asset('images/logo.png'),
-        // ),
         title: Text(AppLocalizations.of(context).translate('title')),
       ),
       drawer: Drawer(

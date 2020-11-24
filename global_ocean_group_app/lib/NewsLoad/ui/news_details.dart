@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:global_ocean_group_app/NewsLoad/model/news_model.dart';
-import 'package:global_ocean_group_app/NewsLoad/ui/web_view.dart';
 import 'package:flutter_html/flutter_html.dart';
+
+//TODO: translate
 
 class NewsDetails extends StatefulWidget {
   final Article article;
@@ -37,31 +38,23 @@ class _NewsDetailsState extends State<NewsDetails> {
                           fontWeight: FontWeight.bold, fontSize: 20.0),
                     ),
                   ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(padding: EdgeInsets.all(10),
+                      child:Text("Viewers: "+ widget.article.viewer.toString()),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Html(
                       data: widget.article.activityContent,
                     ),
-                    // Text(
-                    //   widget.article.activityContent,
-                    //   style: TextStyle(fontSize: 19.0),
-                    // ),
                   )
                 ],
               ),
-              // MaterialButton(
-              //   height: 50.0,
-              //   color: Colors.grey,
-              //   child: Text(
-              //     "For more news",
-              //     style: TextStyle(color: Colors.white, fontSize: 18.0),
-              //   ),
-              //   onPressed: () {
-              //     Navigator.of(context).push(MaterialPageRoute(
-              //         builder: (BuildContext context) =>
-              //             WebView(widget.article.url)));
-              //   },
-              // )
             ],
           ),
         ));

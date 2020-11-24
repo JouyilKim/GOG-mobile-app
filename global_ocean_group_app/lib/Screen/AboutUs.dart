@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:global_ocean_group_app/Localization/app_localizations.dart';
 
 class AboutUs extends StatefulWidget {
   @override
@@ -29,7 +28,6 @@ class _AboutUsState extends State<AboutUs> {
 
   @override
   Widget build(BuildContext context) {
-    Locale myLocale = Localizations.localeOf(context);
 
     LatLng pinPosition = LatLng(-36.850621, 174.764910);
     return Scaffold(
@@ -96,7 +94,7 @@ class _AboutUsState extends State<AboutUs> {
                 Container(
                   padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   margin: EdgeInsets.fromLTRB(0, 20, 0, 30),
-                  height: 600,
+                  height: 500,
                   child: GoogleMap(
                     //this is the code for map gesture move in the scroll view
                     gestureRecognizers: Set()
@@ -135,3 +133,4 @@ class _AboutUsState extends State<AboutUs> {
     controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
   }
 }
+

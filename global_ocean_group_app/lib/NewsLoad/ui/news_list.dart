@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:global_ocean_group_app/Localization/app_localizations.dart';
 import 'package:global_ocean_group_app/NewsLoad/ui/news_details.dart';
 import 'package:global_ocean_group_app/NewsLoad/model/news_model.dart';
 import 'package:http/http.dart' as http;
@@ -22,17 +23,11 @@ class _NewsListPageState extends State<NewsListPage> {
     super.initState();
   }
 
-  Future<List<Article>> getData(String newsType) async {
-    List<Article> list;
+  Future<List<Article>> getData() async {
+    List<Article> list; //articles to return to UI
     String link;
-    //TODO: 고칠것
-    if (newsType == "top_news") {
-      //top news 는 따로 논다
-      link = "http://nzisa.fang.co.nz/activity/api?count=20&keyword=";
-    } else {
-      link =
-          "https://newsapi.org/v2/top-headlines?country=in&category=$newsType&apiKey=ae6c3c0f9d8e485a98fd70edcff81134";
-    }
+      link = "http://nzisa.fang.co.nz/activity/api?count=100&keyword=";
+
     var res = await http.get(Uri.encodeFull(link));
     print(res.body);
     if (res.statusCode == 200) {
@@ -43,13 +38,17 @@ class _NewsListPageState extends State<NewsListPage> {
     }
     print("success!!");
     print("List Size: ${list.length}");
+    list = await articleSelector(list);
+    print("article select success");
+    print("List Size: ${list.length}");
     return list;
   }
 
   Widget listViewWidget(List<Article> article) {
+
     return Container(
       child: ListView.builder(
-          itemCount: 20,
+          itemCount: article.length,
           padding: const EdgeInsets.all(2.0),
           itemBuilder: (context, position) {
             return Card(
@@ -88,6 +87,34 @@ class _NewsListPageState extends State<NewsListPage> {
     );
   }
 
+  //return if article is correct
+  Future<List<Article>> articleSelector(List<Article> article) async{
+
+    //article type to numbers
+    int type;
+    if(widget.newsType=="Local Activity")
+      type = 1;
+    else if(widget.newsType=="Study Tour")
+      type = 2;
+    else if(widget.newsType=="Govnt Activity")
+      type = 3;
+    else if(widget.newsType=="Socially Activity")
+      type = 4;
+    else if(widget.newsType=="Important Event")
+      type = 5;
+
+    List<Article> newArticle = <Article>[];
+
+    // int count =0;
+    for(int i = 0; i<article.length;i++){
+      if(article[i].categoryId==type){
+        newArticle.add(article[i]);
+        // count++;
+      }
+    }
+    return newArticle;
+  }
+
   void _onTapItem(BuildContext context, Article article) {
     Navigator.of(context).push(MaterialPageRoute(
         builder: (BuildContext context) => NewsDetails(article, widget.title)));
@@ -98,10 +125,10 @@ class _NewsListPageState extends State<NewsListPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(AppLocalizations.of(context).translate(widget.title)),
       ),
       body: FutureBuilder(
-          future: getData(widget.newsType),
+          future: getData(),
           builder: (context, snapshot) {
             return snapshot.data != null
                 ? listViewWidget(snapshot.data)

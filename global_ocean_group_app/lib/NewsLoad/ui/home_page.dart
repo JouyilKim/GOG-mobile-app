@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:global_ocean_group_app/NewsLoad/model/categories_model.dart';
 import 'news_list.dart';
+import 'package:global_ocean_group_app/Localization/app_localizations.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -10,6 +11,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<CategoriesModel> categoriesList;
+
 
   @override
   void initState() {
@@ -21,15 +23,17 @@ class _HomePageState extends State<HomePage> {
   List<CategoriesModel> loadCategories() {
     var categories = <CategoriesModel>[
       //adding all the categories of news in the list
-      new CategoriesModel('images/study.png', "Study in NZ", "top_news"),
-      new CategoriesModel('images/travel.png', "Study & Tour", "health"),
       new CategoriesModel(
-          'images/invest.png', "Investment", "entertainment"),
-      new CategoriesModel('images/invest.png', "Sports", "sports"),
-      // new CategoriesModel('images/business_news.png', "Business", "business"),
-      // new CategoriesModel('images/tech_news.png', "Technology", "technology"),
-      // new CategoriesModel('images/science_news.png', "Science", "science"),
-      // new CategoriesModel('images/politics_news.png', "Politics", "politics")
+          'images/info.png', 'important_event', "Important Event"),
+      new CategoriesModel(
+          'images/study.png', 'local_activity', "Local Activity"),
+      new CategoriesModel(
+          'images/travel.png', 'study_tour_news', "Study Tour"),
+      new CategoriesModel(
+          'images/invest.png', 'govt_activity', "Govnt Activity"),
+      new CategoriesModel(
+          'images/dialogs.png', 'social_activity', "Socially Activity"),
+
     ];
     return categories;
   }
@@ -42,7 +46,7 @@ class _HomePageState extends State<HomePage> {
         // horizontal, this would produce 2 rows.
         crossAxisCount: 2,
         // Generate 100 Widgets that display their index in the List
-        children: List.generate(4, (index) {
+        children: List.generate(5, (index) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(
@@ -57,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: Text(
-                      categoriesList[index].title,
+                      AppLocalizations.of(context).translate(categoriesList[index].title),
                       style: TextStyle(color: Colors.black),
                     ),
                   ),

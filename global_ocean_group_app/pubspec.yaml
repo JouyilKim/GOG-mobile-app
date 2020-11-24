@@ -98,6 +98,19 @@ flutter:
    - images/contactus.png
    - images/email.png
    - images/wechat.jpg
+   - images/info.png
+   - images/travelnz.jpg
+   - images/studynz1.jpg
+   - images/Unis/AUT.jpg
+   - images/Unis/Canterbury.jpg
+   - images/Unis/Lincoln.jpg
+   - images/Unis/Massey Wellington.jpg
+   - images/Unis/Massey.jpg
+   - images/Unis/Otago.jpg
+   - images/Unis/UA1.jpg
+   - images/Unis/UA2.jpg
+   - images/Unis/Victoria.jpg
+   - images/Unis/Waikato.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

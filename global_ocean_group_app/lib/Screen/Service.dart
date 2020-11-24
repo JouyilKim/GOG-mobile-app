@@ -1,68 +1,46 @@
 import 'package:flutter/material.dart';
-import 'Calc.dart';
+import 'package:global_ocean_group_app/Localization/app_localizations.dart';
+
+import 'package:global_ocean_group_app/Screen/service/StudyNZ.dart';
+import 'package:global_ocean_group_app/Screen/service/StudyTour.dart';
+
 
 class Service extends StatefulWidget {
   @override
-  _SilverAppBarWithTabBarState createState() => _SilverAppBarWithTabBarState();
+  _ServiceState createState() => _ServiceState();
 }
 
-class _SilverAppBarWithTabBarState extends State<Service>
-    with SingleTickerProviderStateMixin {
-
-  TabController controller;
-  List<Widget> containers =[
-    Container(
-
-    ),
-    Container(
-      color: Colors.blue,
-    ),
-    Container(
-      child: Calc(),
-    )
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-    controller = TabController(
-      length: 3,
-      vsync: this,
-    );
-  }
-
+class _ServiceState extends State<Service> {
   @override
   Widget build(BuildContext context) {
-
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          //https://github.com/flutter/plugins/tree/master/packages/webview_flutter#using-hybrid-composition
-          SliverAppBar(
-            pinned: false,
-            snap: false,
-            floating: false,
-            backgroundColor: Colors.deepOrange,
-            // **Is it intended ?** flexibleSpace.title overlaps with tabs title.
-            bottom: TabBar(
+    return DefaultTabController(
+      length:3,
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 70,
+          flexibleSpace: SafeArea(
+            child: TabBar(
+              indicatorColor: Colors.white,
               tabs: [
-                Tab(icon: Icon(Icons.airplanemode_active), text: "Study Tour",),
-                Tab(icon: Icon(Icons.assignment), text:"Study" ,),
-                Tab(icon: Icon(Icons.score), text: "Immigration",),
+                Tab(text: AppLocalizations.of(context).translate('study_in_NZ'), icon: Icon(Icons.menu_book)),
+                Tab(text: AppLocalizations.of(context).translate('study_tour'), icon: Icon(Icons.airplanemode_active)),
+                Tab(text: AppLocalizations.of(context).translate('trade'), icon: Icon(Icons.work_sharp)),
               ],
-              controller: controller,
             ),
           ),
-          // SliverList(
-          SliverFillRemaining(
-            child: TabBarView(
-              //physics: NeverScrollableScrollPhysics(),
-              controller: controller,
-              children: containers,
-            ),
-          ),
-        ],
+          automaticallyImplyLeading: false,
+          backgroundColor: Colors.indigoAccent,
+
+        ),
+        body: TabBarView(
+          children: [
+            Center(child: StudyNZ()),
+            Center(child: StudyTour()),
+            Center(child: Text("todo")),
+          ],
+        ),
       ),
     );
+
   }
 }
