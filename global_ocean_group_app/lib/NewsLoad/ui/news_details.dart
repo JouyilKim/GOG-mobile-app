@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:global_ocean_group_app/NewsLoad/model/news_model.dart';
 import 'package:flutter_html/flutter_html.dart';
 
-//TODO: translate
 
 class NewsDetails extends StatefulWidget {
   final Article article;

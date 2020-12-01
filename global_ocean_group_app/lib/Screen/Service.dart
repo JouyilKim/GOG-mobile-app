@@ -4,6 +4,8 @@ import 'package:global_ocean_group_app/Localization/app_localizations.dart';
 import 'package:global_ocean_group_app/Screen/service/StudyNZ.dart';
 import 'package:global_ocean_group_app/Screen/service/StudyTour.dart';
 
+import 'service/Trade.dart';
+
 
 class Service extends StatefulWidget {
   @override
@@ -36,7 +38,7 @@ class _ServiceState extends State<Service> {
           children: [
             Center(child: StudyNZ()),
             Center(child: StudyTour()),
-            Center(child: Text("todo")),
+            Center(child: Trade()),
           ],
         ),
       ),
